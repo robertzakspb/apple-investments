@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  printf 'Usage: ./jaah-gate {quick|full}\n' >&2
+}
+
+repo_root="$(git rev-parse --show-toplevel)"
+cd "$repo_root"
+
+run_quick() {
+  git diff --check
+  git diff --cached --check
+  bash -n ./jaah-gate
+}
+
+case "${1:-}" in
+  quick)
+    run_quick
+    ;;
+  full)
+    run_quick
+    git show --check --format=oneline HEAD
+    ;;
+  *)
+    usage
+    exit 2
+    ;;
+esac
