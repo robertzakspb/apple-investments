@@ -1,0 +1,17 @@
+# What this is
+
+This repository is planned as the UI and backend for an RIA platform that demonstrates customer portfolio performance. The repository currently has no application source or runtime; the proposed stack is documented in [the stack proposal](docs/stack-proposal.md).
+
+# Hard rules
+
+- Keep this repository's current state and limitations accurate; do not describe proposed technologies as implemented.
+- Run `./jaah-gate quick` during work and `./jaah-gate full` before delivery.
+- Follow Jaah's installed [context architecture](/usr/lib/jaahd/docs/policies/context-architecture.md), [agentic instrumentation standard](/usr/lib/jaahd/docs/policies/agentic-instrumentation.md), [onboarding pattern](/usr/lib/jaahd/docs/patterns/jaah-onboarding.md), and [worktree-pool policy](/usr/lib/jaahd/docs/policies/worktree-pool-policy.md). These installed documents are the canonical policies; do not copy them into this repository.
+
+# Router
+
+| Topic | Read |
+| --- | --- |
+| Current layout, run and test status, conventions, and limitations | [Codebase analysis](docs/codebase-analysis.md) |
+| Proposed UI, API, and database stack | [Stack proposal](docs/stack-proposal.md) |
+| Cross-tool agent instructions | [AGENTS.md](AGENTS.md) |
