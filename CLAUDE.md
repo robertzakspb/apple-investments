@@ -14,4 +14,5 @@ This repository contains the Next.js portfolio UI and a FastAPI health-check bac
 | --- | --- |
 | Current layout, run and test status, conventions, and limitations | [Codebase analysis](docs/codebase-analysis.md) |
 | Proposed UI, API, and database stack | [Stack proposal](docs/stack-proposal.md) |
+| AWS deployment and CI/CD setup, free-tier limits, and IAM prerequisites | [Deployment](docs/deployment.md) |
 | Cross-tool agent instructions | [AGENTS.md](AGENTS.md) |

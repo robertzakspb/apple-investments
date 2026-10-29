@@ -1,6 +1,6 @@
 # Application stack
 
-The operator approved this stack for the platform. The frontend and backend technologies are implemented; PostgreSQL remains a proposal.
+The operator approved this application stack. The frontend and backend technologies are implemented. AWS infrastructure provisions PostgreSQL, but the backend does not yet connect to it; see [AWS demo deployment](deployment.md).
 
 | Layer | Proposed technology | Intended responsibility |
 | --- | --- | --- |

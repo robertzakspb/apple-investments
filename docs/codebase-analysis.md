@@ -14,7 +14,7 @@ The FastAPI backend exposes GET /health, returning a healthy status, and allows 
 
 Install frontend packages with `npm install`, then run the UI with `npm run dev`. The FastAPI service runs separately: install backend/requirements.txt in a Python 3.10+ environment and start it with `uvicorn backend.main:app --reload --port 8000`. Set NEXT_PUBLIC_BACKEND_URL in the frontend environment to the backend origin when it differs from http://127.0.0.1:8000. For a frontend origin outside the local defaults, set BACKEND_CORS_ORIGINS to a comma-separated list of allowed origins before starting the backend. NEXT_PUBLIC_BACKEND_URL is inlined into the browser bundle at build time.
 
-The UI health check calls the backend directly from the browser. The app has no portfolio data, authentication, container setup, or persistent application state. PostgreSQL remains a proposal; the health endpoint checks backend reachability only and does not check dependencies.
+The UI health check calls the backend directly from the browser. The app has no portfolio data, authentication, container setup, or persistent application state. The AWS stack provisions an isolated PostgreSQL database, but the backend does not connect to it; the health endpoint checks backend reachability only and does not check dependencies. See [AWS demo deployment](deployment.md) for infrastructure and deployment details.
 
 ## Checks
 
@@ -26,4 +26,4 @@ The frontend uses npm for package management and Playwright Test for end-to-end 
 
 The app uses Next.js App Router file-based pages and the built-in `Link` component for navigation. Shared shell UI belongs in the root layout; current-page state is derived from the route. Follow the installed Next.js guidance in `AGENTS.md` and the local Next.js docs before changing framework APIs.
 
-No database is configured, and the backend currently serves only the health check. Revisit this analysis as portfolio APIs or persistence are added.
+The backend currently serves only the health check and does not use the provisioned AWS database. Revisit this analysis as portfolio APIs or persistence are added.
