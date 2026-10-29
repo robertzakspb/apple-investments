@@ -5,9 +5,15 @@ Parameters:
   GitHubOwner:
     Type: String
     Description: GitHub organization or user that owns the repository.
+  GitHubOwnerId:
+    Type: String
+    Description: Immutable numeric ID of the GitHub organization or user.
   GitHubRepository:
     Type: String
     Default: apple-investments
+  GitHubRepositoryId:
+    Type: String
+    Description: Immutable numeric ID of the GitHub repository.
   DbPasswordParameterPath:
     Type: String
     Default: /apple-investments/postgres/master-password
@@ -241,8 +247,7 @@ Resources:
             Condition:
               StringEquals:
                 token.actions.githubusercontent.com:aud: sts.amazonaws.com
-              StringLike:
-                token.actions.githubusercontent.com:sub: !Sub "repo:${GitHubOwner}/${GitHubRepository}:ref:refs/heads/main"
+                token.actions.githubusercontent.com:sub: !Sub "repo:${GitHubOwner}@${GitHubOwnerId}/${GitHubRepository}@${GitHubRepositoryId}:ref:refs/heads/main"
       Policies:
         - PolicyName: DeployDemoApplication
           PolicyDocument:
