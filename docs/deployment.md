@@ -25,6 +25,6 @@ After stack creation, configure these GitHub repository **variables** from the s
 | `AWS_REGION` | `us-east-1` |
 | `AWS_DEPLOY_ROLE_ARN` | `arn:aws:iam::604609572854:role/apple-investments-github-deploy` (`DeployRoleArn` output) |
 
-The workflow assumes this role with OIDC, reads the stack's public bucket/API/function outputs, runs the project gate, updates the Lambda package, and syncs the static export. It requires no GitHub secrets. A merged change reaches `main` and triggers the deployment; a failed gate prevents deployment steps.
+The workflow assumes this role with OIDC, reads the stack's public bucket/API/function outputs, runs the project gate, updates the Lambda package, and syncs the static export. It requires no GitHub secrets. A merged change reaches `main` and triggers the deployment; a failed gate prevents deployment steps. Manual workflow dispatch must target `main`, because the OIDC role only trusts that branch.
 
 The role permits only reading CloudFormation stack outputs, listing and updating the named website bucket, and updating the named Lambda function's code. It cannot alter the database or infrastructure after bootstrap.
