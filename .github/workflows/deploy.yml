@@ -45,10 +45,12 @@ jobs:
           echo "function=$(jq -r '.[] | select(.OutputKey == "ApiFunctionName") | .OutputValue' <<< "$values")" >> "$GITHUB_OUTPUT"
       - name: Install UI dependencies
         run: npm ci
-      - name: Verify and build
+      - name: Verify
+        run: ./jaah-gate full
+      - name: Build UI for AWS
         env:
           NEXT_PUBLIC_BACKEND_URL: ${{ steps.stack.outputs.api }}
-        run: ./jaah-gate full
+        run: npm run build
       - name: Package backend
         run: |
           mkdir -p /tmp/lambda-package
