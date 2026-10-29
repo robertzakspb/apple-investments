@@ -14,16 +14,16 @@ If the free offer is unavailable, RDS PostgreSQL `db.t3.micro` in `us-east-1` is
 
 The stack needs an existing SSM Parameter Store **Standard** `SecureString` at `/apple-investments/postgres/master-password`; its value is used only as the RDS master password. Create it with a fresh password in the AWS console before stack creation. Do not put that value in Git, a command line, workflow variable, or this document. Standard Parameter Store parameters do not have a monthly storage charge within the documented standard-tier limit.
 
-Use the region selected for the supplied AWS credential (`us-east-1` at dispatch). The account plan API currently reports `PAID` with no remaining credits; the operator confirmed active RDS Free Tier coverage for the planned database. The bootstrap identity needs CloudFormation stack create/describe/update/delete and change-set actions, `iam:PassRole` if a CloudFormation execution role is used, IAM role/policy and OIDC provider create/read/update/delete actions, S3 bucket/policy/website configuration actions, Lambda create/configure/permission actions, API Gateway v2 create/update/delete actions, EC2 VPC/subnet/route-table/internet-gateway/security-group actions, RDS create/describe/delete and subnet-group actions, SSM parameter read, and CloudWatch Logs read. Current checks still show explicit organization SCP denies for `cloudformation:DescribeStacks`, `iam:ListOpenIDConnectProviders`, `lambda:ListFunctions`, and `rds:DescribeDBInstances`. An IAM allow cannot override these SCP denies; the AWS organization administrator must remove or narrow them before bootstrap can proceed.
+The selected deployment account is in `us-east-1`. Its account-plan API reports `PAID` with no remaining credits, and the operator confirmed active Free Tier service coverage for RDS PostgreSQL, S3, Lambda, API Gateway, and CloudWatch Logs. Stack `apple-investments-demo` is deployed and the UI and API have been initialized. The API health endpoint returns HTTP 200. The database is a private `db.t3.micro` PostgreSQL instance with 20 GiB storage. The AWS bootstrap used a credential with the required stack permissions; a separate earlier credential had organization SCP denies that an IAM allow could not override.
 
 Create the SSM parameter as a Standard SecureString, then create the stack using infra/aws.yml, passing the GitHub owner and repository. The CloudFormation stack creates the hosting resources, an OIDC provider, and a GitHub deploy role restricted to the repository's main branch. The account must not already have a `token.actions.githubusercontent.com` OIDC provider, because IAM permits only one provider for that URL per account.
 
-After stack creation, configure these GitHub repository **variables** from the stack outputs:
+After stack creation, configure these GitHub repository **variables** from the stack outputs. The deployed stack's values are shown below; both variables are required before GitHub Actions can assume the deploy role:
 
 | Variable | Value |
 | --- | --- |
-| `AWS_REGION` | Region where the stack was created |
-| `AWS_DEPLOY_ROLE_ARN` | `DeployRoleArn` output |
+| `AWS_REGION` | `us-east-1` |
+| `AWS_DEPLOY_ROLE_ARN` | `arn:aws:iam::604609572854:role/apple-investments-github-deploy` (`DeployRoleArn` output) |
 
 The workflow assumes this role with OIDC, reads the stack's public bucket/API/function outputs, runs the project gate, updates the Lambda package, and syncs the static export. It requires no GitHub secrets. A merged change reaches `main` and triggers the deployment; a failed gate prevents deployment steps.
 
