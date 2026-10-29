@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-usage() {
-  printf 'Usage: ./jaah-gate {quick|full}\n' >&2
-}
-
 repo_root="$(git rev-parse --show-toplevel)"
 cd "$repo_root"
 
@@ -12,6 +8,8 @@ run_quick() {
   git diff --check
   git diff --cached --check
   bash -n ./jaah-gate
+  npm run lint
+  npm run typecheck
 }
 
 case "${1:-}" in
@@ -21,9 +19,12 @@ case "${1:-}" in
   full)
     run_quick
     git show --check --format=oneline HEAD
+    npm run test:setup
+    npm test
+    npm run build
     ;;
   *)
-    usage
+    printf 'Usage: ./jaah-gate {quick|full}\n' >&2
     exit 2
     ;;
 esac
