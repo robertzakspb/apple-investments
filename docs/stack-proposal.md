@@ -1,11 +1,11 @@
-# Proposed application stack
+# Application stack
 
-The operator approved this proposal for the future platform. These technologies are not implemented in the current repository and do not describe a runnable application yet.
+The operator approved this stack for the platform. The frontend and backend technologies are implemented; PostgreSQL remains a proposal.
 
 | Layer | Proposed technology | Intended responsibility |
 | --- | --- | --- |
-| Frontend | Next.js with TypeScript | Customer-facing portfolio performance UI |
-| Backend | FastAPI with Python | API and performance calculations |
+| Frontend | Next.js with TypeScript | Customer-facing portfolio performance UI; currently includes portfolio navigation and Settings health check |
+| Backend | FastAPI with Python | API; currently provides a health endpoint |
 | Database | PostgreSQL | Application and portfolio data |
 
-When implementation begins, choose and record the package and test tooling for each layer, add the corresponding stack-specific agent guidance, and update the run and check instructions based on the actual code. Until then, no framework-specific command or environment variable is assumed.
+The backend uses pip requirements in backend/requirements.txt, pytest for API tests, and Uvicorn for local serving. See [Codebase analysis](codebase-analysis.md) for setup, environment variables, and checks.

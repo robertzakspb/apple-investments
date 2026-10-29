@@ -126,6 +126,65 @@ h1 {
   line-height: 1.6;
 }
 
+.settings-card {
+  margin-top: 40px;
+  padding: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 12px 32px rgb(24 35 31 / 4%);
+}
+
+.settings-card .eyebrow { margin-bottom: 10px; }
+
+.settings-card h2 {
+  margin: 0;
+  font-size: 20px;
+  letter-spacing: -0.035em;
+}
+
+.health-status {
+  margin: 12px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.health-indicator {
+  width: 9px;
+  height: 9px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #a8b2ac;
+}
+
+.health-healthy { background: #23875d; }
+.health-unavailable { background: #c64747; }
+.health-checking { background: #c48a28; }
+
+.health-button {
+  min-height: 44px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 8px;
+  color: #fff;
+  background: var(--green);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.health-button:hover { background: #10563c; }
+.health-button:focus-visible { outline: 3px solid #8fc5aa; outline-offset: 3px; }
+.health-button:disabled { cursor: wait; opacity: 0.7; }
+
 @media (max-width: 760px) {
   .site-header {
     min-height: unset;
@@ -147,6 +206,8 @@ h1 {
 
   .nav-link { flex: 0 0 auto; font-size: 12px; }
   .main-content { width: calc(100% - 48px); padding-top: 64px; }
+  .settings-card { align-items: flex-start; flex-direction: column; }
+  .health-button { width: 100%; }
 }
 
 @media (max-width: 380px) {
