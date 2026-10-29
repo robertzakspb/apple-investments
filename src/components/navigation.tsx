@@ -5,11 +5,11 @@ import { usePathname } from "next/navigation";
 
 const pages = [
   { label: "Home", href: "/" },
-  { label: "Accounts", href: "/accounts" },
-  { label: "Positions", href: "/positions" },
-  { label: "Orders", href: "/orders" },
-  { label: "Securities", href: "/securities" },
-  { label: "Settings", href: "/settings" },
+  { label: "Accounts", href: "/accounts/" },
+  { label: "Positions", href: "/positions/" },
+  { label: "Orders", href: "/orders/" },
+  { label: "Securities", href: "/securities/" },
+  { label: "Settings", href: "/settings/" },
 ];
 
 export function Navigation() {

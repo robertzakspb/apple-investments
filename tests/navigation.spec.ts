@@ -3,11 +3,11 @@ import { expect, test } from "@playwright/test";
 test("navigation opens each portfolio page and marks it current", async ({ page }) => {
   const destinations = [
     { label: "Home", path: "/" },
-    { label: "Accounts", path: "/accounts" },
-    { label: "Positions", path: "/positions" },
-    { label: "Orders", path: "/orders" },
-    { label: "Securities", path: "/securities" },
-    { label: "Settings", path: "/settings" },
+    { label: "Accounts", path: "/accounts/" },
+    { label: "Positions", path: "/positions/" },
+    { label: "Orders", path: "/orders/" },
+    { label: "Securities", path: "/securities/" },
+    { label: "Settings", path: "/settings/" },
   ];
 
   await page.goto("/");
@@ -31,7 +31,7 @@ test("settings checks backend health and reports the result", async ({ page }) =
     await route.fulfill({ status: 200, json: { status: "ok" } });
   });
 
-  await page.goto("/settings");
+  await page.goto("/settings/");
   await page.getByRole("button", { name: "Check backend" }).click();
 
   await expect(page.getByRole("status")).toHaveText("Backend is responsive");

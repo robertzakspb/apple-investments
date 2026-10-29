@@ -1,0 +1,61 @@
+name: Deploy to AWS
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: aws-production-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      STACK_NAME: apple-investments-demo
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Configure AWS credentials with GitHub OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+      - name: Read deployment outputs
+        id: stack
+        shell: bash
+        run: |
+          values=$(aws cloudformation describe-stacks --stack-name "$STACK_NAME" --query 'Stacks[0].Outputs' --output json)
+          echo "bucket=$(jq -r '.[] | select(.OutputKey == "WebsiteBucketName") | .OutputValue' <<< "$values")" >> "$GITHUB_OUTPUT"
+          echo "api=$(jq -r '.[] | select(.OutputKey == "ApiUrl") | .OutputValue' <<< "$values")" >> "$GITHUB_OUTPUT"
+          echo "function=$(jq -r '.[] | select(.OutputKey == "ApiFunctionName") | .OutputValue' <<< "$values")" >> "$GITHUB_OUTPUT"
+      - name: Install UI dependencies
+        run: npm ci
+      - name: Verify and build
+        env:
+          NEXT_PUBLIC_BACKEND_URL: ${{ steps.stack.outputs.api }}
+        run: ./jaah-gate full
+      - name: Package backend
+        run: |
+          mkdir -p /tmp/lambda-package
+          python -m pip install --target /tmp/lambda-package -r backend/requirements.txt
+          cp backend/main.py backend/index.py /tmp/lambda-package/
+          cd /tmp/lambda-package && zip -qr "$GITHUB_WORKSPACE/backend.zip" .
+      - name: Deploy backend
+        run: aws lambda update-function-code --function-name "${{ steps.stack.outputs.function }}" --zip-file fileb://backend.zip
+      - name: Deploy UI
+        run: aws s3 sync out/ "s3://${{ steps.stack.outputs.bucket }}/" --delete
