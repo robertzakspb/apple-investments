@@ -4,5 +4,7 @@ out/
 coverage/
 playwright-report/
 test-results/
+.playwright-mcp/
+*.tsbuildinfo
 .DS_Store
 npm-debug.log*
