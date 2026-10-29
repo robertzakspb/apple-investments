@@ -9,6 +9,7 @@ const pages = [
   { label: "Positions", href: "/positions" },
   { label: "Orders", href: "/orders" },
   { label: "Securities", href: "/securities" },
+  { label: "Settings", href: "/settings" },
 ];
 
 export function Navigation() {

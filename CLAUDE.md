@@ -1,6 +1,6 @@
 # What this is
 
-This repository is planned as the UI and backend for an RIA platform that demonstrates customer portfolio performance. The repository currently has no application source or runtime; the proposed stack is documented in [the stack proposal](docs/stack-proposal.md).
+This repository contains the Next.js portfolio UI and a FastAPI health-check backend for an eventual RIA platform that demonstrates customer portfolio performance. Current implementation and run instructions live in [Codebase analysis](docs/codebase-analysis.md); the intended stack is in [the stack proposal](docs/stack-proposal.md).
 
 # Hard rules
 
