@@ -1,10 +1,6 @@
 :root {
   color-scheme: light;
   --ink: #18231f;
-  --muted: #718078;
-  --line: #e7ece8;
-  --green: #176a4c;
-  --green-soft: #eaf4ee;
   --canvas: #f7f9f7;
 }
 
@@ -18,205 +14,18 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-a { color: inherit; text-decoration: none; }
-
-.site-header {
-  min-height: 84px;
-  padding: 0 clamp(24px, 6vw, 88px);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 36px;
-  background: #fff;
-  border-bottom: 1px solid var(--line);
-}
-
-.brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  flex: 0 0 auto;
-  font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
-  font-weight: 800;
-  letter-spacing: -0.045em;
-  font-size: 16px;
-}
-
-.brand-mark {
-  width: 32px;
-  height: 32px;
+.home {
+  min-height: 100vh;
+  padding: 24px;
   display: grid;
   place-items: center;
-  border-radius: 11px;
-  color: white;
-  background: var(--green);
-  font-family: Georgia, serif;
-  font-size: 24px;
-  font-weight: 700;
-  font-style: italic;
-  line-height: 1;
-}
-
-.primary-nav {
-  height: 84px;
-  display: flex;
-  align-items: stretch;
-  gap: clamp(18px, 3vw, 42px);
-}
-
-.nav-link {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  color: #6f7c75;
-  font-size: 13px;
-  font-weight: 600;
-  transition: color 160ms ease;
-}
-
-.nav-link:hover, .nav-link-current { color: var(--green); }
-
-.nav-link-current::after {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 2px;
-  background: var(--green);
-  content: "";
-}
-
-.header-note {
-  flex: 0 0 auto;
-  color: #89958e;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.13em;
-}
-
-.main-content {
-  width: min(1120px, calc(100% - 48px));
-  margin: 0 auto;
-  padding: clamp(56px, 9vw, 112px) 0;
-}
-
-.page-heading { max-width: 680px; }
-
-.eyebrow {
-  margin: 0 0 16px;
-  color: var(--green);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
+  text-align: center;
 }
 
 h1 {
   margin: 0;
-  font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
-  font-size: clamp(44px, 7vw, 68px);
+  font-size: clamp(36px, 7vw, 68px);
   font-weight: 600;
-  letter-spacing: -0.065em;
-  line-height: 1.04;
-}
-
-.page-description {
-  margin: 20px 0 0;
-  color: var(--muted);
-  font-size: 16px;
-  line-height: 1.6;
-}
-
-.settings-card {
-  margin-top: 40px;
-  padding: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: #fff;
-  box-shadow: 0 12px 32px rgb(24 35 31 / 4%);
-}
-
-.settings-card .eyebrow { margin-bottom: 10px; }
-
-.settings-card h2 {
-  margin: 0;
-  font-size: 20px;
-  letter-spacing: -0.035em;
-}
-
-.health-status {
-  margin: 12px 0 0;
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.health-indicator {
-  width: 9px;
-  height: 9px;
-  flex: 0 0 auto;
-  border-radius: 50%;
-  background: #a8b2ac;
-}
-
-.health-healthy { background: #23875d; }
-.health-unavailable { background: #c64747; }
-.health-checking { background: #c48a28; }
-
-.health-button {
-  min-height: 44px;
-  padding: 0 18px;
-  border: 0;
-  border-radius: 8px;
-  color: #fff;
-  background: var(--green);
-  font: inherit;
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.health-button:hover { background: #10563c; }
-.health-button:focus-visible { outline: 3px solid #8fc5aa; outline-offset: 3px; }
-.health-button:disabled { cursor: wait; opacity: 0.7; }
-
-@media (max-width: 760px) {
-  .site-header {
-    min-height: unset;
-    padding: 20px 24px 0;
-    flex-wrap: wrap;
-    gap: 16px 20px;
-  }
-
-  .header-note { margin-left: auto; }
-
-  .primary-nav {
-    order: 3;
-    width: 100%;
-    height: 56px;
-    justify-content: space-between;
-    gap: 12px;
-    overflow-x: auto;
-  }
-
-  .nav-link { flex: 0 0 auto; font-size: 12px; }
-  .main-content { width: calc(100% - 48px); padding-top: 64px; }
-  .settings-card { align-items: flex-start; flex-direction: column; }
-  .health-button { width: 100%; }
-}
-
-@media (max-width: 380px) {
-  .site-header { padding-right: 18px; padding-left: 18px; }
-  .brand { font-size: 14px; }
-  .header-note { font-size: 8px; }
-  .primary-nav { gap: 18px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+  letter-spacing: -0.04em;
+  line-height: 1.1;
 }

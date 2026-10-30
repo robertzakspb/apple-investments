@@ -4,7 +4,7 @@ The operator approved this application stack. The frontend and backend technolog
 
 | Layer | Proposed technology | Intended responsibility |
 | --- | --- | --- |
-| Frontend | Next.js with TypeScript | Customer-facing portfolio performance UI; currently includes portfolio navigation and Settings health check |
+| Frontend | Next.js with TypeScript | Customer-facing portfolio performance UI; currently a single home page reading "I was made by Jaah" |
 | Backend | FastAPI with Python | API; currently provides a health endpoint |
 | Database | PostgreSQL | Application and portfolio data |
 
