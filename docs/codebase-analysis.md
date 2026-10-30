@@ -6,15 +6,15 @@ This repository is the UI and backend for an eventual registered investment advi
 
 ## Current layout
 
-The frontend is a Next.js App Router application written in TypeScript. The shared root layout renders primary navigation for Home, Accounts, Positions, Orders, Securities, and Settings. The portfolio destinations show lightweight placeholder content. Settings provides a backend health check. Navigation indicates the current page accessibly and adapts to narrow screens.
+The frontend is a Next.js App Router application written in TypeScript. It has a single home page that shows the centered heading "I was made by Jaah"; there is no header, navigation, or other page, and the UI does not call the backend.
 
-The FastAPI backend exposes GET /health, returning a healthy status, and allows browser requests from the local frontend origins. Its source and API test live under backend. The frontend, shared navigation, and Playwright navigation test live under src and tests. The repository root contains npm, TypeScript, ESLint, Playwright, and Jaah gate configuration.
+The FastAPI backend exposes GET /health, returning a healthy status, and allows browser requests from the local frontend origins. Its source and API test live under backend. The frontend and its Playwright home-page test live under src and tests. The repository root contains npm, TypeScript, ESLint, Playwright, and Jaah gate configuration.
 
 ## Run and state
 
-Install frontend packages with `npm install`, then run the UI with `npm run dev`. The FastAPI service runs separately: install backend/requirements.txt in a Python 3.10+ environment and start it with `uvicorn backend.main:app --reload --port 8000`. Set NEXT_PUBLIC_BACKEND_URL in the frontend environment to the backend origin when it differs from http://127.0.0.1:8000. For a frontend origin outside the local defaults, set BACKEND_CORS_ORIGINS to a comma-separated list of allowed origins before starting the backend. NEXT_PUBLIC_BACKEND_URL is inlined into the browser bundle at build time.
+Install frontend packages with `npm install`, then run the UI with `npm run dev`. The FastAPI service runs separately: install backend/requirements.txt in a Python 3.10+ environment and start it with `uvicorn backend.main:app --reload --port 8000`. For a frontend origin outside the local defaults, set BACKEND_CORS_ORIGINS to a comma-separated list of allowed origins before starting the backend.
 
-The UI health check calls the backend directly from the browser. The app has no portfolio data, authentication, container setup, or persistent application state. The AWS stack provisions an isolated PostgreSQL database, but the backend does not connect to it; the health endpoint checks backend reachability only and does not check dependencies. See [AWS demo deployment](deployment.md) for infrastructure and deployment details.
+The app has no portfolio data, authentication, container setup, or persistent application state. The AWS stack provisions an isolated PostgreSQL database, but the backend does not connect to it; the health endpoint checks backend reachability only and does not check dependencies. See [AWS demo deployment](deployment.md) for infrastructure and deployment details.
 
 ## Checks
 
@@ -24,6 +24,6 @@ The frontend uses npm for package management and Playwright Test for end-to-end 
 
 ## Conventions and limitations
 
-The app uses Next.js App Router file-based pages and the built-in `Link` component for navigation. Shared shell UI belongs in the root layout; current-page state is derived from the route. Follow the installed Next.js guidance in `AGENTS.md` and the local Next.js docs before changing framework APIs.
+The app uses Next.js App Router file-based pages. Shared shell UI belongs in the root layout. Follow the installed Next.js guidance in `AGENTS.md` and the local Next.js docs before changing framework APIs.
 
 The backend currently serves only the health check and does not use the provisioned AWS database. Revisit this analysis as portfolio APIs or persistence are added.
