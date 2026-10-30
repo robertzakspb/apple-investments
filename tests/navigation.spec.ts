@@ -70,6 +70,27 @@ test("settings appearance overrides the system theme and persists", async ({ pag
   await expect(page.locator("html")).not.toHaveAttribute("data-theme", /.*/);
 });
 
+test("Ascent A logo heads the sidebar, links home, and is the favicon", async ({ page }) => {
+  await page.goto("/clients/");
+
+  const logo = page.getByRole("complementary").getByRole("link", { name: "Apple Investments home" });
+  await expect(logo).toBeVisible();
+  await logo.click();
+  await expect(page).toHaveURL("/");
+
+  const icon = await page.request.get((await page.locator('link[rel="icon"]').first().getAttribute("href")) ?? "");
+  expect(await icon.text()).toContain("M14 88 L50 12 L86 88");
+});
+
+test("mobile top bar shows the logo", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/positions/");
+
+  // The drawer is hidden, so the only reachable logo is the one in the top bar.
+  await page.getByRole("link", { name: "Apple Investments home" }).click();
+  await expect(page).toHaveURL("/");
+});
+
 test("unknown pages are not found", async ({ page }) => {
   for (const path of ["/accounts/", "/orders/", "/securities/"]) {
     const response = await page.goto(path);

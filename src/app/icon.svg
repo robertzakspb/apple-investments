@@ -1,4 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="18" fill="#176a4c" />
-  <text x="32" y="47" fill="#fff" font-family="Georgia,serif" font-size="48" font-style="italic" font-weight="700" text-anchor="middle">a</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect width="100" height="100" rx="22" fill="#eef0ff" />
+  <g transform="translate(8 8) scale(0.84)">
+    <path d="M14 88 L50 12 L86 88" fill="none" stroke="#1e1b6b" stroke-width="10" stroke-linejoin="round" stroke-linecap="round" />
+    <polyline points="22,68 40,56 52,62 76,40" fill="none" stroke="#4f46e5" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M66 36 L82 35 L80 51 Z" fill="#4f46e5" />
+  </g>
 </svg>
