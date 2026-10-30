@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { Logo } from "@/components/logo";
 import { appPages } from "@/lib/pages";
 
 export function Sidebar() {
@@ -46,9 +47,11 @@ export function Sidebar() {
             <path d={open ? "M6 6l12 12M18 6 6 18" : "M4 7h16M4 12h16M4 17h16"} />
           </svg>
         </button>
+        <Logo />
       </div>
 
       <aside className={`sidebar${open ? " sidebar-open" : ""}`} id="sidebar">
+        <Logo onClick={() => setOpen(false)} />
         <nav aria-label="Primary navigation">
           <ul className="nav-list">
             {appPages.map(({ label, href, icon }) => {

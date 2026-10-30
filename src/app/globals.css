@@ -14,6 +14,9 @@
   --accent-ink: #ffffff;
   --healthy: #1f8a5b;
   --unavailable: #c2413b;
+  --logo-tile: #eef0ff;
+  --logo-peak: #1e1b6b;
+  --logo-trend: #4f46e5;
   --sidebar-width: 232px;
 }
 
@@ -33,6 +36,9 @@
   --accent-ink: #0a1220;
   --healthy: #4cc28a;
   --unavailable: #ef7a74;
+  --logo-tile: transparent;
+  --logo-peak: #c7d2fe;
+  --logo-trend: #818cf8;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -52,6 +58,12 @@
     --accent-ink: #0a1220;
     --healthy: #4cc28a;
     --unavailable: #ef7a74;
+    --logo-tile: transparent;
+    --logo-peak: #c7d2fe;
+    --logo-trend: #818cf8;
+  --logo-tile: transparent;
+  --logo-peak: #c7d2fe;
+  --logo-trend: #818cf8;
   }
 }
 
@@ -90,6 +102,22 @@ h1, h2, p { margin: 0; }
   max-width: calc(1200px + var(--sidebar-width));
 }
 
+.logo {
+  display: inline-flex;
+  margin: 0 0 20px 8px;
+  border-radius: 9px;
+}
+
+.logo svg { width: 36px; height: 36px; display: block; }
+.logo-tile { fill: var(--logo-tile); }
+.logo-peak, .logo-trend { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.logo-peak { stroke: var(--logo-peak); stroke-width: 10; }
+.logo-trend { stroke: var(--logo-trend); stroke-width: 7; }
+.logo-arrow { fill: var(--logo-trend); }
+
+.mobile-bar .logo { margin: 0 0 0 4px; }
+.mobile-bar .logo svg { width: 32px; height: 32px; }
+
 .nav-list {
   margin: 0;
   padding: 0;
@@ -119,6 +147,7 @@ h1, h2, p { margin: 0; }
   font-weight: 600;
 }
 
+.logo:focus-visible,
 .nav-link:focus-visible,
 .menu-button:focus-visible,
 .button:focus-visible,
