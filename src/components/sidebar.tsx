@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { appPages } from "@/lib/pages";
 
 export function Sidebar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [openedAt, setOpenedAt] = useState(pathname);
+  const menuButton = useRef<HTMLButtonElement>(null);
 
   // Close the mobile drawer whenever the route changes.
   if (open && openedAt !== pathname) setOpen(false);
@@ -16,7 +17,9 @@ export function Sidebar() {
   useEffect(() => {
     if (!open) return;
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key !== "Escape") return;
+      setOpen(false);
+      menuButton.current?.focus();
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
@@ -36,6 +39,7 @@ export function Sidebar() {
           aria-label={open ? "Close navigation" : "Open navigation"}
           className="menu-button"
           onClick={toggle}
+          ref={menuButton}
           type="button"
         >
           <svg aria-hidden="true" viewBox="0 0 24 24">

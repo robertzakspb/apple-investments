@@ -33,14 +33,14 @@ test("mobile sidebar is a drawer behind a menu button", async ({ page }) => {
   await page.goto("/");
 
   const nav = page.getByRole("navigation", { name: "Primary navigation" });
-  await expect(nav).not.toBeInViewport();
+  await expect(nav).toBeHidden();
 
   await page.getByRole("button", { name: "Open navigation" }).click();
-  await expect(nav).toBeInViewport();
+  await expect(nav).toBeVisible();
 
   await nav.getByRole("link", { name: "Positions" }).click();
   await expect(page).toHaveURL("/positions/");
-  await expect(nav).not.toBeInViewport();
+  await expect(nav).toBeHidden();
 });
 
 test("settings checks backend health and reports the result", async ({ page }) => {
@@ -58,15 +58,15 @@ test("settings appearance overrides the system theme and persists", async ({ pag
   await page.emulateMedia({ colorScheme: "light" });
   await page.goto("/settings/");
 
-  await expect(page.getByRole("radio", { name: "System" })).toHaveAttribute("aria-checked", "true");
-  await page.getByRole("radio", { name: "Dark" }).click();
+  await expect(page.getByRole("button", { name: "System" })).toHaveAttribute("aria-pressed", "true");
+  await page.getByRole("button", { name: "Dark" }).click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
 
   await page.reload();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-  await expect(page.getByRole("radio", { name: "Dark" })).toHaveAttribute("aria-checked", "true");
+  await expect(page.getByRole("button", { name: "Dark" })).toHaveAttribute("aria-pressed", "true");
 
-  await page.getByRole("radio", { name: "System" }).click();
+  await page.getByRole("button", { name: "System" }).click();
   await expect(page.locator("html")).not.toHaveAttribute("data-theme", /.*/);
 });
 

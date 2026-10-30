@@ -234,7 +234,7 @@ h2 { font-size: 15px; font-weight: 600; }
   color: var(--muted);
 }
 
-.segmented button[aria-checked="true"] {
+.segmented button[aria-pressed="true"] {
   background: var(--sidebar-active);
   color: var(--sidebar-active-ink);
   font-weight: 600;
@@ -296,12 +296,14 @@ h2 { font-size: 15px; font-weight: 600; }
   .sidebar {
     top: 52px;
     transform: translateX(-100%);
-    transition: transform 180ms ease-out;
+    visibility: hidden;
+    transition: transform 180ms ease-out, visibility 180ms;
     box-shadow: none;
   }
 
   .sidebar-open {
     transform: none;
+    visibility: visible;
     box-shadow: 0 8px 24px rgb(0 0 0 / 0.18);
   }
 

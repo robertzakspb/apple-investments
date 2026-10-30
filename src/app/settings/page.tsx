@@ -54,13 +54,12 @@ export default function SettingsPage() {
           <h2 id="appearance-title">Appearance</h2>
           <p>System follows your device&apos;s light or dark setting.</p>
         </div>
-        <div className="segmented" role="radiogroup" aria-labelledby="appearance-title">
+        <div className="segmented" role="group" aria-labelledby="appearance-title">
           {themeOptions.map(({ value, label }) => (
             <button
-              aria-checked={theme === value}
+              aria-pressed={theme === value}
               key={value}
               onClick={() => applyThemePreference(value)}
-              role="radio"
               type="button"
             >
               {label}

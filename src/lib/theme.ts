@@ -24,17 +24,25 @@ export function applyThemePreference(preference: ThemePreference) {
     // Storage can be unavailable (private mode); the choice still applies to this page view.
   }
 
-  if (preference === "system") document.documentElement.removeAttribute("data-theme");
-  else document.documentElement.setAttribute("data-theme", preference);
-
+  setThemeAttribute(preference);
   window.dispatchEvent(new Event(changeEvent));
 }
 
+function setThemeAttribute(preference: ThemePreference) {
+  if (preference === "system") document.documentElement.removeAttribute("data-theme");
+  else document.documentElement.setAttribute("data-theme", preference);
+}
+
 export function subscribeThemePreference(onChange: () => void) {
+  // Another tab changed the preference: apply it here too.
+  const onStorage = () => {
+    setThemeAttribute(readThemePreference());
+    onChange();
+  };
   window.addEventListener(changeEvent, onChange);
-  window.addEventListener("storage", onChange);
+  window.addEventListener("storage", onStorage);
   return () => {
     window.removeEventListener(changeEvent, onChange);
-    window.removeEventListener("storage", onChange);
+    window.removeEventListener("storage", onStorage);
   };
 }
