@@ -6,9 +6,9 @@ This repository is the UI and backend for an eventual registered investment advi
 
 ## Current layout
 
-The frontend is a Next.js App Router application written in TypeScript. It has a single home page that shows the centered heading "I was made by Jaah"; there is no header, navigation, or other page, and the UI does not call the backend.
+The frontend is a Next.js App Router application written in TypeScript. A left sidebar (a menu-button drawer below 768px wide) links Home, Clients, Positions, Security Master and Settings. Home shows empty firm-metric tiles; Clients, Positions and Security Master are placeholder pages with no data. Settings offers a System/Light/Dark appearance choice, stored in browser localStorage and defaulting to the device theme, and a button that calls the backend /health endpoint at NEXT_PUBLIC_BACKEND_URL (default http://127.0.0.1:8000). The sidebar destinations and their descriptions are defined once in src/lib/pages.ts.
 
-The FastAPI backend exposes GET /health, returning a healthy status, and allows browser requests from the local frontend origins. Its source and API test live under backend. The frontend and its Playwright home-page test live under src and tests. The repository root contains npm, TypeScript, ESLint, Playwright, and Jaah gate configuration.
+The FastAPI backend exposes GET /health, returning a healthy status, and allows browser requests from the local frontend origins. Its source and API test live under backend. The frontend and its Playwright navigation and Settings tests live under src and tests. The repository root contains npm, TypeScript, ESLint, Playwright, and Jaah gate configuration.
 
 ## Run and state
 
